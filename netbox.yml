@@ -17,6 +17,7 @@
           - libpq-dev
           - libssl-dev
           - zlib1g-dev
+          - redis-server
         state: present
 
     - name: Install libpq-dev
@@ -48,11 +49,6 @@
       become_user: postgres
       postgresql_privs:
         db: netbox
-
-    - name: Install redis
-      apt:
-        name: redis-server
-        state: present
         type: table
         roles: netbox
         privs: CREATE
