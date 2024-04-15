@@ -7,10 +7,14 @@
         name: postgresql
         state: present
 
-    #- name: Install python-psycopg2
-    #  apt:
-    #    name: python-psycopg2
-    #    state: present
+    - name: Install pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install psycopg2 using pip
+      pip:
+        name: psycopg2
 
     - name: Create netbox user
       postgresql_user:
