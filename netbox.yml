@@ -22,6 +22,7 @@
         name: psycopg2
 
     - name: Create netbox user
+      become_user: postgres
       postgresql_user:
         name: netbox
         password: simple_password
