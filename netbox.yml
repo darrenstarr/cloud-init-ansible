@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Install postgresql
+      apt:
+        name: postgresql
+        state: present
+
+    - name: Install python-psycopg2
+      apt:
+        name: python-psycopg2
+        state: present
+
+    - name: Create netbox user
+      postgresql_user:
+        name: netbox
+        password: simple_password
+        role_attr_flags: CREATEDB
+
+    - name: Create netbox database
+      postgresql_db:
+        name: netbox
+        owner: netbox
+
+    - name: Grant privileges
+      postgresql_privs:
+        db: netbox
+        schema: public
+        type: schema
+        roles: netbox
+        privs: CREATE
+        objs: ALL_IN_SCHEMA
