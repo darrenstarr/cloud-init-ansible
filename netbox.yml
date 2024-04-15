@@ -41,8 +41,7 @@
       become_user: postgres
       postgresql_privs:
         db: netbox
-        schema: public
-        type: schema
+        type: table
         roles: netbox
         privs: CREATE
         objs: ALL_IN_SCHEMA
