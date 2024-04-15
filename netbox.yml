@@ -22,6 +22,7 @@
         name: psycopg2
 
     - name: Create netbox user
+      become: yes
       become_user: postgres
       postgresql_user:
         name: netbox
@@ -29,11 +30,15 @@
         role_attr_flags: CREATEDB
 
     - name: Create netbox database
+      become: yes
+      become_user: postgres
       postgresql_db:
         name: netbox
         owner: netbox
 
     - name: Grant privileges
+      become: yes
+      become_user: postgres
       postgresql_privs:
         db: netbox
         schema: public
