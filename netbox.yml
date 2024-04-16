@@ -107,7 +107,8 @@
         msg: "Key is {{ old_secret_key.stdout }}" 
 
     - name: Set the secret key
-      set_fact: "{{ old_secret_key.stdout }}"
+      set_fact: 
+        secret_key: "{{ old_secret_key.stdout }}"
 
     - name: Generate secret key if not exist
       command: python3 /opt/netbox/netbox/generate_secret_key.py
