@@ -127,4 +127,4 @@
         group: netbox
         mode: '0644'
       vars:
-        secret_key: "{{ secret_key.stdout }}"
+        secret_key: "{{ secret_key }}"
