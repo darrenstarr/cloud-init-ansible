@@ -78,10 +78,10 @@
         mode: '0755'
 
     - name: Clone netbox git repo
+      become: yes
+      become_user: netbox
       git:
         repo: 'https://github.com/netbox-community/netbox.git'
         dest: /opt/netbox
         version: master
         depth: 1
-        become: yes
-        become_user: netbox
