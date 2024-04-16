@@ -17,8 +17,8 @@ ALLOWED_HOSTS = [ {{ allowed_hosts }} ]
 DATABASE = {
     'ENGINE': 'django.db.backends.postgresql',  # Database engine
     'NAME': 'netbox',         # Database name
-    'USER': '^{ netbox_postgres_user }}',               # PostgreSQL username
-    'PASSWORD': '^{ netbox_postgres_password }}',           # PostgreSQL password
+    'USER': '{{ postgres_user }}',               # PostgreSQL username
+    'PASSWORD': '{{ postgres_password }}',           # PostgreSQL password
     'HOST': 'localhost',      # Database server
     'PORT': '',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age
