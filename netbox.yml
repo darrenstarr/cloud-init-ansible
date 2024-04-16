@@ -97,7 +97,7 @@
       become_user: netbox
 
     - name: Check if configuration.py exists and get SECRET_KEY
-      shell: grep "SECRET_KEY =" /opt/netbox/netbox/netbox/netbox/configuration.py | cut -d "'" -f 2
+      shell: grep "SECRET_KEY =" /opt/netbox/netbox/netbox/configuration.py | cut -d "'" -f 2
       register: secret_key
       ignore_errors: yes
       changed_when: false
