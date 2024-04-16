@@ -58,6 +58,11 @@
         privs: CREATE
         objs: ALL_IN_SCHEMA
 
+    - name: Create netbox group
+      group:
+        name: netbox
+        system: yes
+
     - name: Create netbox user and group
       user:
         name: netbox
