@@ -96,6 +96,22 @@
       become: yes
       become_user: netbox
 
+    - name: Check if configuration.py exists and get SECRET_KEY
+      shell: grep ^SECRET_KEY /opt/netbox/netbox/netbox/netbox/configuration.py | cut -d "'" -f 2
+      register: secret_key
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Generate secret key if not exist
+      command: python /opt/netbox/netbox/generate_secret_key.py
+      register: generated_secret_key
+      when: secret_key.stdout == ""
+
+    - name: Set secret_key variable
+      set_fact:
+        secret_key: "{{ generated_secret_key.stdout }}"
+      when: secret_key.stdout == ""
+
     - name: Copy configuration.py.j2 to configuration.py
       template:
         src: ./configuration.py.j2
@@ -103,4 +119,5 @@
         owner: netbox
         group: netbox
         mode: '0644'
-    
+      vars:
+        secret_key: "{{ secret_key.stdout }}"
