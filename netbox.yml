@@ -5,7 +5,7 @@
   vars:
     netbox_version: 3.7.5
     postgres_password: simple_password
-    netbox_allowed_hosts: "'10.*'"
+    allowed_hosts: "'10.*'"
     postgres_user: "netbox"
   
   tasks:
