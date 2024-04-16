@@ -4,6 +4,7 @@
 
   vars:
     netbox_version: 3.7.5
+    postgres_password: simple_password
   
   tasks:
     - name: Install required packages
@@ -38,7 +39,7 @@
       become_user: postgres
       postgresql_user:
         name: netbox
-        password: simple_password
+        password: "{{ postgres_password }}"
         role_attr_flags: CREATEDB
 
     - name: Create netbox database
@@ -85,3 +86,23 @@
         dest: /opt/netbox
         version: master
         depth: 1
+
+    - name: Remove contents of /home/netbox/.ansible directory
+      file:
+        path: /home/netbox/.ansible
+        state: absent
+      become: yes
+      become_user: netbox
+
+    - name: Check if configuration.py exists
+      stat:
+        path: /opt/netbox/netbox/netbox/configuration.py
+      register: result
+
+    - name: Copy configuration_example.py to configuration.py if it does not exist
+      copy:
+        src: /opt/netbox/netbox/netbox/configuration_example.py
+        dest: /opt/netbox/netbox/netbox/configuration.py
+      when: result.stat.exists == False
+
+    
