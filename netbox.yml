@@ -129,3 +129,22 @@
         mode: '0644'
       vars:
         secret_key: "{{ secret_key }}"
+
+    - name: Check if netbox service is running
+      service:
+        name: netbox
+        state: started
+      register: service_status
+      ignore_errors: yes
+
+    - name: Run upgrade script if netbox service is not running
+      command: /opt/netbox/upgrade.sh
+      become: yes
+      when: service_status is failed
+
+    - name: Ensure netbox service is running
+      service:
+        name: netbox
+        state: started
+
+    
