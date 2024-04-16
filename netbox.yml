@@ -103,7 +103,8 @@
       changed_when: false
 
     - name: Display the contents of secret_key
-      debug: secret_key.stdout 
+      debug: 
+        msg: secret_key.stdout 
       when: secret_key.stdout == ""
 
 
