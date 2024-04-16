@@ -103,7 +103,7 @@
       changed_when: false
 
     - name: Generate secret key if not exist
-      command: python /opt/netbox/netbox/generate_secret_key.py
+      command: python3 /opt/netbox/netbox/generate_secret_key.py
       register: generated_secret_key
       when: secret_key.stdout == ""
 
