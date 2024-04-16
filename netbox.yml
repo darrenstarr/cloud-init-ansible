@@ -1,6 +1,10 @@
 ---
 - hosts: localhost
   become: yes
+
+  vars:
+    netbox_version: 3.7.5
+  
   tasks:
     - name: Install required packages
       apt:
@@ -53,3 +57,26 @@
         roles: netbox
         privs: CREATE
         objs: ALL_IN_SCHEMA
+
+    - name: Create netbox user and group
+      user:
+        name: netbox
+        group: netbox
+        system: yes
+        
+    - name: Create directory /opt/netbox and change owner to netbox
+      file:
+        path: /opt/netbox
+        state: directory
+        owner: netbox
+        group: netbox
+        mode: '0755'
+
+    - name: Clone netbox git repo
+      git:
+        repo: 'https://github.com/netbox-community/netbox.git'
+        dest: /opt/netbox
+        version: master
+        depth: 1
+        become: yes
+        become_user: netbox
