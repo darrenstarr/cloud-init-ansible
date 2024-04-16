@@ -104,7 +104,7 @@
 
     - name: Display the contents of secret_key
       debug: 
-        msg: secret_key.stdout 
+        msg: "Key is {{ secret_key.stdout }}" 
       when: secret_key.stdout == ""
 
 
