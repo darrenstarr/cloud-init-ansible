@@ -105,8 +105,6 @@
     - name: Display the contents of secret_key
       debug: 
         msg: "Key is {{ secret_key.stdout }}" 
-      when: secret_key.stdout == ""
-
 
     - name: Generate secret key if not exist
       command: python3 /opt/netbox/netbox/generate_secret_key.py
