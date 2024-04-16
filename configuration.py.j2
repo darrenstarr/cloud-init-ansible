@@ -4,19 +4,21 @@
 #                       #
 #########################
 
+{{ vars }}
+
 # This is a list of valid fully-qualified domain names (FQDNs) for the NetBox server. NetBox will not permit write
 # access to the server via any other hostnames. The first FQDN in the list will be treated as the preferred name.
 #
 # Example: ALLOWED_HOSTS = ['netbox.example.com', 'netbox.internal.local']
-ALLOWED_HOSTS = [ {{ allowed_hosts }} ]
+ALLOWED_HOSTS = [ ^{ allowed_hosts }} ]
 
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
     'ENGINE': 'django.db.backends.postgresql',  # Database engine
     'NAME': 'netbox',         # Database name
-    'USER': '{{ netbox_postgres_user }}',               # PostgreSQL username
-    'PASSWORD': '{{ netbox_postgres_password }}',           # PostgreSQL password
+    'USER': '^{ netbox_postgres_user }}',               # PostgreSQL username
+    'PASSWORD': '^{ netbox_postgres_password }}',           # PostgreSQL password
     'HOST': 'localhost',      # Database server
     'PORT': '',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age
