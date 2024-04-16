@@ -5,6 +5,8 @@
   vars:
     netbox_version: 3.7.5
     postgres_password: simple_password
+    netbox_allowed_hosts: "'10.*'"
+    postgres_user: "netbox"
   
   tasks:
     - name: Install required packages
@@ -94,15 +96,11 @@
       become: yes
       become_user: netbox
 
-    - name: Check if configuration.py exists
-      stat:
-        path: /opt/netbox/netbox/netbox/configuration.py
-      register: result
-
-    - name: Copy configuration_example.py to configuration.py if it does not exist
-      copy:
-        src: /opt/netbox/netbox/netbox/configuration_example.py
-        dest: /opt/netbox/netbox/netbox/configuration.py
-      when: result.stat.exists == False
-
+    - name: Copy configuration.py.j2 to configuration.py
+      template:
+        src: ./configuration.py.j2
+        dest: /opt/netbox/netbox/netbox/netbox/configuration.py
+        owner: netbox
+        group: netbox
+        mode: '0644'
     
