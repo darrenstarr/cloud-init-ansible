@@ -99,7 +99,7 @@
     - name: Copy configuration.py.j2 to configuration.py
       template:
         src: ./configuration.py.j2
-        dest: /opt/netbox/netbox/netbox/netbox/configuration.py
+        dest: /opt/netbox/netbox/netbox/configuration.py
         owner: netbox
         group: netbox
         mode: '0644'
