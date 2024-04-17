@@ -17,6 +17,7 @@
           - python3-pip
           - python3-venv
           - python3-dev
+          - python-is-python3
           - build-essential
           - libxml2-dev
           - libxslt1-dev
@@ -142,9 +143,5 @@
       become: yes
       when: service_status is failed
 
-    - name: Ensure netbox service is running
-      service:
-        name: netbox
-        state: started
 
     
